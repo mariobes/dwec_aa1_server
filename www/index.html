@@ -67,7 +67,7 @@
     <div class="custom-container">
         <!-- Botones -->
       <div class="btn-add-categorie-site">
-        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#add-category-modal">Añadir categoría</button>
+        <button type="button" id="add-category" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#add-category-modal">Añadir categoría</button>
         <button type="button" class="btn btn-outline-primary">Añadir sitio</button>
       </div>
       <div class="list-categories-sites">
@@ -91,6 +91,27 @@
               </thead>
               <tbody id="table-sites"></tbody>
             </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Popup -->
+    <div class="modal" id="add-category-modal" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Añadir nueva categoría</h5>
+            <button type="button" id="close-add-category-btn" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form id="add-category-form">
+              <div class="mb-3">
+                <label for="category-name" class="form-label">Nombre de la categoría:</label>
+                <input type="text" class="form-control" id="category-name" required>
+              </div>
+              <button type="button" onclick="return false" id="add-category-btn" class="btn btn-primary">Guardar</button>
+            </form>
+          </div>
         </div>
       </div>
     </div>

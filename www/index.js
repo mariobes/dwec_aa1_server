@@ -7,7 +7,6 @@ document.addEventListener('DOMContentLoaded', function () {
         data.forEach(category => {
           let child = document.createElement('button')
           child.classList.add('list-group-item')
-          child.setAttribute('category-id', category.id)
           child.innerText = category.name
           parent.appendChild(child)
         })
@@ -19,100 +18,47 @@ document.addEventListener('DOMContentLoaded', function () {
         .then(data => drawDataCategories(data))
     }
 
+    //Inicializar popup
+    document.getElementById('add-category').addEventListener('click', function() {
+        document.getElementById('category-name').value = '';
+        document.getElementById('add-category-btn').disabled = true;
+    })
+
+    //Popup
+    document.getElementById('add-category-btn').addEventListener('click', function(event) {
+
+        const categoryName = document.getElementById('category-name').value;
+
+        fetch("http://localhost:3000/categories", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ name: categoryName }),
+        })
+        .then(res => res.json())
+        GetCategories();
+    })
+
+
+    //Validar que se introduzca un nombre al añadir una categoría
+    document.getElementById('category-name').addEventListener('input', checkName);
+
+    function checkName() {
+
+        const addCategoryForm = document.getElementById('add-category-btn');
+        const categoryName = document.getElementById('category-name');
+
+        if (categoryName.value === '') {
+            addCategoryForm.disabled = true;
+        } else {
+            addCategoryForm.disabled = false;
+        }
+    }
+
     GetCategories();
 });
 
-
-
-
-
-
-
-
-        /*
-
-document.addEventListener('DOMContentLoaded', function () {
-
-    let drawData = (data) => {
-        let parent = document.getElementById('list-categories');
-        parent.innerHTML = '';  // Limpiar el contenido existente antes de volver a dibujar
-
-        data.forEach(category => {
-            let child = document.createElement('li');
-            child.classList.add('list-group-item');
-            child.innerText = category.name;
-            parent.appendChild(child);
-        });
-    }
-
-    // Función para realizar la solicitud fetch y actualizar la lista de categorías
-    const updateCategories = () => {
-        fetch("http://localhost:3000/categories")
-            .then(res => res.json())
-            .then(data => drawData(data));
-    }
-
-    // Escuchar el envío del formulario
-    document.getElementById('addCategoryForm').addEventListener('submit', function (event) {
-        event.preventDefault();  // Evitar la recarga de la página por defecto
-
-        // Obtener el nombre de la categoría del formulario
-        const categoryName = document.getElementById('categoryName').value;
-
-        // Realizar una solicitud fetch para agregar la nueva categoría
-        fetch("http://localhost:3000/categories", {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ name: categoryName }),
-        })
-        .then(res => res.json())
-        .then(data => {
-            // Cerrar el modal después de agregar la categoría
-            const modal = new bootstrap.Modal(document.getElementById('addCategoryModal'));
-            modal.hide();
-
-            // Actualizar la lista de categorías
-            updateCategories();
-        });
-    });
-
-    // Cargar las categorías al cargar la página
-    updateCategories();
-});
-
-
-
-
-
-
-
-
-
-
-
-
-    //Pintar el popup
-    document.getElementById('addCategoryForm').addEventListener('submit', function (event) {
-        event.preventDefault();
-        const categoryName = document.getElementById('categoryName').value;
-
-        fetch("http://localhost:3000/categories", {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ name: categoryName }),
-        })
-        .then(res => res.json())
-
-        GetCategories();
-    });
-
-
-
-        */
 
 
 
