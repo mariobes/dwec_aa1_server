@@ -13,14 +13,20 @@
       margin: 0 auto;
     } 
 
+    .btn-add-categorie-site {
+      margin: 50px 50px 50px 20%;
+
+    }
+
     .list-categories-sites {
       display: flex;
       justify-content: center;
     }
 
     .list-categories {
-      width: 25%;
+      max-width: 25%;
       margin-right: 20px; 
+
     }
 
     .list-categories ul {
@@ -29,8 +35,13 @@
       text-align: center; 
     }
 
-    .list-categories li {
-      margin-bottom: 5px; 
+    .list-categories ul button:hover {
+      background-color: rgba(1, 162, 255, 0.5);
+
+    }
+
+    #item-categorie button {
+      width: 100%;
     }
 
     .list-sites {
@@ -46,27 +57,29 @@
 <body>
   <main>
 
-          <!-- Encabezado -->
-          <nav class="navbar navbar-dark bg-dark" aria-label="First navbar example">
-            <div class="container-fluid">
-              <a class="navbar-brand" href="#">Gestor de contraseñas</a>
-            </div>
-          </nav>
+    <!-- Encabezado -->
+    <nav class="navbar navbar-dark bg-dark" aria-label="First navbar example">
+      <div class="container-fluid">
+        <a class="navbar-brand">Gestor de contraseñas</a>
+      </div>
+    </nav>
 
     <div class="custom-container">
-
+        <!-- Botones -->
       <div class="btn-add-categorie-site">
-
+        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#add-category-modal">Añadir categoría</button>
+        <button type="button" class="btn btn-outline-primary">Añadir sitio</button>
       </div>
       <div class="list-categories-sites">
         <!-- Lista de categorías -->
         <div class="list-categories">
-          <ul id="list-categories" class="list-group">
+          <ul class="list-group">
             <li class="list-group-item active"><h2>Categorías</h2></li>
+            <li id="item-categorie"></li>
           </ul>
         </div>
         <div class="list-sites">
-            <!-- Tablas de sitios -->
+            <!-- Tabla de sitios -->
             <table class="table table-bordered">
               <thead>
                 <tr class="table-primary">
@@ -76,21 +89,11 @@
                   <th scope="col"><h4>Acciones</h4></th>
                 </tr>
               </thead>
-              <tbody>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                  <td>@mdo</td>
-                </tr>
-              </tbody>
+              <tbody id="table-sites"></tbody>
             </table>
         </div>
       </div>
-
     </div>
-
-
 
   </main>
   <script src="./index.js"></script>
