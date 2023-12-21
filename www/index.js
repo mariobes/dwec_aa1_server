@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
         data.forEach(category => {
           let child = document.createElement('button')
           child.classList.add('list-group-item')
+          child.setAttribute('category-id', category.id)
           child.innerText = category.name
           parent.appendChild(child)
         })
@@ -55,6 +56,33 @@ document.addEventListener('DOMContentLoaded', function () {
             addCategoryForm.disabled = false;
         }
     }
+
+    //Pintar los sitios
+    let drawDataSites = (data) => {
+        const sitesInfo = data.sites;
+        let parent = document.getElementById('table-sites')
+        parent.innerHTML = '';
+        sitesInfo.forEach(site => {
+            let row = document.createElement('tr');
+            let child1 = document.createElement('td');
+            child1.innerHTML = `<b>${site.name}</b>`;
+            row.appendChild(child1);
+            let child2 = document.createElement('td');
+            child2.innerText = site.user;
+            row.appendChild(child2);
+            let child3 = document.createElement('td');
+            child3.innerText = site.createdAt;
+            row.appendChild(child3);
+            parent.appendChild(row);
+        })
+      }
+
+    document.getElementById('item-categorie').addEventListener('click', function(event) {
+        const categoryId = event.target.getAttribute('category-id');
+        fetch(`http://localhost:3000/categories/${categoryId}`)
+        .then(res => res.json())
+        .then(data => drawDataSites(data))
+    })
 
     GetCategories();
 });
