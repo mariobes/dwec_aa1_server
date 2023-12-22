@@ -164,6 +164,13 @@ document.addEventListener('DOMContentLoaded', function () {
             addCategoryForm.disabled = false;
         }
     }
+
+
+    //Al darle click a añadir nuevo sitio ir a su html
+    let addSite = document.getElementById('add-site')
+    addSite.addEventListener('click', function() {
+        window.location.href = './addSite.html';
+    })
     
     GetCategories();
 });
