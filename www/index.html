@@ -13,7 +13,7 @@
       margin: 0 auto;
     } 
 
-    .btn-add-categorie-site {
+    .btn-add-category-site {
       margin: 50px 50px 50px 20%;
 
     }
@@ -26,7 +26,6 @@
     .list-categories {
       max-width: 25%;
       margin-right: 20px; 
-
     }
 
     .list-categories ul {
@@ -35,13 +34,29 @@
       text-align: center; 
     }
 
-    .list-categories ul button:hover {
+    .list-categories .name-category-btn:hover {
       background-color: rgba(1, 162, 255, 0.5);
-
     }
 
-    #item-categorie button {
+    #item-category li {
+      display: flex; 
+      flex-direction: row;
       width: 100%;
+      text-align: left;
+      margin-top: 5px;
+    }
+
+    .name-category-btn {
+      width: 75%;
+      margin-right: 5px;
+    }
+
+    .delete-category-btn {
+      width: 25%;
+    }
+
+    td button {
+      margin: 0 10px;
     }
 
     .list-sites {
@@ -50,6 +65,11 @@
 
     .list-sites table {
       text-align: center; 
+    }
+
+    .list-sites table .btn:hover {
+      background-color: rgb(160, 157, 157);
+    
     }
 
   </style>
@@ -66,16 +86,16 @@
 
     <div class="custom-container">
         <!-- Botones -->
-      <div class="btn-add-categorie-site">
+      <div class="btn-add-category-site">
         <button type="button" id="add-category" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#add-category-modal">Añadir categoría</button>
-        <button type="button" class="btn btn-outline-primary">Añadir sitio</button>
+        <button type="button" disabled id="add-site" class="btn btn-outline-primary">Añadir sitio</button>
       </div>
       <div class="list-categories-sites">
         <!-- Lista de categorías -->
         <div class="list-categories">
           <ul class="list-group">
             <li class="list-group-item active"><h2>Categorías</h2></li>
-            <li id="item-categorie"></li>
+            <div id="item-category"></div>
           </ul>
         </div>
         <div class="list-sites">
