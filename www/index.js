@@ -136,7 +136,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     //Añadir categoria con popup
     document.getElementById('add-category-btn').addEventListener('click', function() {
-        const categoryName = document.getElementById('category-name').value;
+        const categoryName = document.getElementById('category-name').value.trim();
         fetch("http://localhost:3000/categories", {
             method: 'POST',
             headers: {
@@ -157,7 +157,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const addCategoryForm = document.getElementById('add-category-btn');
         const categoryName = document.getElementById('category-name');
 
-        if (categoryName.value === '') {
+        if (categoryName.value.trim() === '') {
             addCategoryForm.disabled = true;
         } else {
             addCategoryForm.disabled = false;
