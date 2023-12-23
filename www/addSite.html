@@ -48,36 +48,32 @@
         </div>
     </nav>
 
-
-
-
-
     <form id="add-site-form">
+        <div class="form-group">
+          <label for="name">Nombre</label>
+          <input type="text" class="form-control" id="name-form" aria-describedby="name" placeholder="Introduce el nombre" required>
+        </div>
         <div class="form-group">
           <label for="url">URL</label>
           <input type="text" class="form-control" id="url-form" aria-describedby="url" placeholder="Introduce la url">
         </div>
         <div class="form-group">
             <label for="user">Usuario</label>
-            <input type="text" class="form-control" id="user-form" aria-describedby="user" placeholder="Introduce tu usuario">
+            <input type="text" class="form-control" id="user-form" aria-describedby="user" placeholder="Introduce el usuario" required>
           </div>
         <div class="form-group">
           <label for="password">Contraseña</label>
-          <input type="password" class="form-control" id="password-form" aria-describedby="password" placeholder="Introduce una contraseña">
+          <input type="password" class="form-control" id="password-form" aria-describedby="password" placeholder="Introduce una contraseña" required>
         </div>
         <div class="description-form-group">
             <label for="description">Descripción</label>
             <textarea class="form-control" id="description-form" rows="8"></textarea>
         </div>
         <div class="btn-form-group">
-            <button type="button" class="btn btn-primary">Guardar</button>
-            <button type="button" id="btn-close" class="btn btn-danger">Cerrar</button>
+            <button type="button" disabled onclick="return false" id="btn-save" class="btn btn-primary">Guardar</button>
+            <button type="button" onclick="return false" id="btn-close" class="btn btn-danger">Cerrar</button>
         </div>
       </form>
-
-
-
-
 
     </main>
     <script src="./addSite.js"></script>

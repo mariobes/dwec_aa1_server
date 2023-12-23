@@ -11,7 +11,6 @@ document.addEventListener('DOMContentLoaded', function () {
           let categoryNameBtn = document.createElement('button');
           categoryNameBtn.classList.add('list-group-item', 'name-category-btn');
           categoryNameBtn.setAttribute('category-id', category.id)
-          currentCategoryId = category.id;
           categoryNameBtn.innerText = category.name
 
           let deleteCategoryBtn = document.createElement('button');
@@ -135,15 +134,15 @@ document.addEventListener('DOMContentLoaded', function () {
     })
 
 
-    //Popup
+    //Añadir categoria con popup
     document.getElementById('add-category-btn').addEventListener('click', function() {
         const categoryName = document.getElementById('category-name').value;
         fetch("http://localhost:3000/categories", {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
+                'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ name: categoryName }),
+            body: JSON.stringify({ name: categoryName })
         })
         .then(res => res.json())
         GetCategories();
@@ -169,7 +168,7 @@ document.addEventListener('DOMContentLoaded', function () {
     //Al darle click a añadir nuevo sitio ir a su html
     let addSite = document.getElementById('add-site')
     addSite.addEventListener('click', function() {
-        window.location.href = './addSite.html';
+        window.location.href = `./addSite.html?categoryId=${currentCategoryId}`;
     })
     
     GetCategories();
