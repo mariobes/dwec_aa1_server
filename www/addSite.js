@@ -1,20 +1,47 @@
 document.addEventListener('DOMContentLoaded', function () {
 
+    const URL_API = "http://localhost:3000";
     const urlParams = new URLSearchParams(window.location.search);
     const categoryId = urlParams.get('categoryId');
 
-    //Al darle click a guardar añade el nuevo sitio y vuelve al index
-    document.getElementById('btn-save').addEventListener('click', function() {
-        addSite(categoryId);
-    })
 
+    //Añadir el evento blur a los campos del formulario
+    const addBlur = () => {
+        const fields = ['name-form', 'url-form', 'user-form'];
+        const passwordField = document.getElementById('password-form');
+
+        fields.forEach(fieldSite => {
+            const field = document.getElementById(fieldSite);
+            field.addEventListener('blur', function () {
+                validateLength(field, 1, 50);
+            });
+        });
+        passwordField.addEventListener('blur', function () {
+            validateLength(passwordField, 8, 50);
+        });
+    };
+
+    addBlur();
+
+    //Validar la longitud del campo
+    const validateLength = (field, minLength, maxLength) => {
+        const value = field.value.trim();
+        if (value.length < minLength || value.length > maxLength) {
+            field.classList.add('is-invalid'); 
+        } else {
+            field.classList.remove('is-invalid'); 
+        }
+    };
+
+
+    //Añadir un sitio
     const addSite = (categoryId) => {
         const siteName = document.getElementById('name-form').value.trim();
         const siteUrl = document.getElementById('url-form').value.trim();
         const siteUser = document.getElementById('user-form').value.trim();
         const sitePassword = document.getElementById('password-form').value.trim();
         const siteDescription = document.getElementById('description-form').value.trim();
-        fetch(`http://localhost:3000/categories/${categoryId}`, {
+        fetch(`${URL_API}/categories/${categoryId}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -28,25 +55,29 @@ document.addEventListener('DOMContentLoaded', function () {
             })
         })
         .then(res => res.json())
-        backIndex();
+        .then(() => backIndex());
     }
 
 
     //Validar que se introduzca un nombre un usuario y una contraseña al añadir un sitio
     document.getElementById('name-form').addEventListener('input', checkNewSite);
+    document.getElementById('url-form').addEventListener('input', checkNewSite);
     document.getElementById('user-form').addEventListener('input', checkNewSite);
     document.getElementById('password-form').addEventListener('input', checkNewSite);
 
     function checkNewSite() {
-
         const btnSave = document.getElementById('btn-save');
         const siteName = document.getElementById('name-form');
+        const siteUrl = document.getElementById('url-form');
         const siteUser = document.getElementById('user-form');
         const sitePassword = document.getElementById('password-form');
-
-        if (siteName.value.trim() === '' || siteUser.value.trim() === '' || sitePassword.value.trim() === '') {
-            btnSave.disabled = true;
-        } else {
+        if (siteName.value.trim() === '' || 
+            siteUrl.value.trim() === '' || 
+            siteUser.value.trim() === '' || 
+            sitePassword.value.length < 8
+        ) {  
+            btnSave.disabled = true;     
+        } else {  
             btnSave.disabled = false;
         }
     }
@@ -73,6 +104,12 @@ document.addEventListener('DOMContentLoaded', function () {
         const sitePassword = document.getElementById('password-form');
         sitePassword.value = password;
         checkNewSite();
+    })
+
+
+    //Al darle click a guardar añade el nuevo sitio y vuelve al index
+    document.getElementById('btn-save').addEventListener('click', function() {
+        addSite(categoryId);
     })
 
 

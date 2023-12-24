@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
 
+    const URL_API = "http://localhost:3000";
     let currentCategoryId;
 
     //Pintar las categorias
@@ -43,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function () {
       }
 
     const GetCategories = () => {
-        fetch("http://localhost:3000/categories")
+        fetch(`${URL_API}/categories`)
         .then(res => res.json())
         .then(data => drawDataCategories(data))
     }
@@ -51,12 +52,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
     //Borrar una categoría
     const DeleteCategory = (categoryId) => {
-        fetch(`http://localhost:3000/categories/${categoryId}`, {
+        fetch(`${URL_API}/categories/${categoryId}`, {
             method: 'DELETE',
         })
-        .then(() => {
-            GetCategories();
-        })
+        .then(() => GetCategories());
     };
 
 
@@ -110,7 +109,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     const GetSites = (categoryId) => {
-        fetch(`http://localhost:3000/categories/${categoryId}`)
+        fetch(`${URL_API}/categories/${categoryId}`)
         .then(res => res.json())
         .then(data => drawDataSites(data))
     };
@@ -118,12 +117,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
     //Borrar un sitio
     const DeleteSite = (siteId) => {
-        fetch(`http://localhost:3000/sites/${siteId}`, {
+        fetch(`${URL_API}/sites/${siteId}`, {
             method: 'DELETE',
         })
-        .then(() => {
-            GetSites(currentCategoryId);
-        });
+        .then(() => GetSites(currentCategoryId));
     };
 
 
@@ -137,7 +134,7 @@ document.addEventListener('DOMContentLoaded', function () {
     //Añadir categoria con popup
     document.getElementById('add-category-btn').addEventListener('click', function() {
         const categoryName = document.getElementById('category-name').value.trim();
-        fetch("http://localhost:3000/categories", {
+        fetch(`${URL_API}/categories`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -145,7 +142,7 @@ document.addEventListener('DOMContentLoaded', function () {
             body: JSON.stringify({ name: categoryName })
         })
         .then(res => res.json())
-        GetCategories();
+        .then(() => GetCategories());
     })
 
 
@@ -153,10 +150,8 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('category-name').addEventListener('input', checkName);
 
     function checkName() {
-
         const addCategoryForm = document.getElementById('add-category-btn');
         const categoryName = document.getElementById('category-name');
-
         if (categoryName.value.trim() === '') {
             addCategoryForm.disabled = true;
         } else {
